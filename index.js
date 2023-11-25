@@ -4,7 +4,8 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
-
+const globalErrorHandler = require('./src/middlewares/globalErrorHandler');
+const crudErrorHandler = require('./src/middlewares/crudErrorHandler');
 const packageController = require('./src/controllers/packageController'); 
 const authController = require('./src/controllers/authController');
 
@@ -48,5 +49,11 @@ app.get('/packages', packageController.getAllPackages);
 
 app.post('/jwt', authController.login);
 app.post('/logout', authController.logout);
+
+// Global Error Handler
+app.use(globalErrorHandler);
+
+// Crud Error Handler
+app.all('*', crudErrorHandler);
 
 
