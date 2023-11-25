@@ -1,6 +1,8 @@
 const Package = require('../models/Package'); 
 
-const getAllPackages = async (req, res) => {
+
+// Get allpackages 
+const allPackages = async (req, res) => {
   try {
     const packages = await Package.find();
     res.json(packages);
@@ -9,6 +11,25 @@ const getAllPackages = async (req, res) => {
   }
 };
 
+
+// Get a single package by ID
+const singlePackage = async (req, res) => {
+    const packageId = req.params.id;
+  
+    try {
+      const package = await Package.findById(packageId);
+  
+      if (!package) {
+        return res.status(404).json({ error: 'Package not found' });
+      }
+  
+      res.json(package);
+    } catch (error) {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
+
 module.exports = {
-  getAllPackages,
+  allPackages,
+  singlePackage
 };

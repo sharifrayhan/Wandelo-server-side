@@ -1,10 +1,13 @@
 const jwt = require('jsonwebtoken');
 
+
+// Eikhan theke token pathacchi
+
 const login = async (req, res) => {
 
   try {
     const user = req.body;
-    console.log('user token chay', user);
+    console.log('user token chacche', user);
     const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1hr' });
 
     res.cookie('token', token, {
@@ -22,10 +25,12 @@ const login = async (req, res) => {
 };
 
 
+// Keu logout korle token delete kortesi
+
 const logout = (req, res) => {
     try {
         const user = req.body
-        console.log('cookie delete kora dorkar', user)
+        console.log('cookie delete korte hobe', user)
       res.clearCookie('token', {
         maxAge: 0,
         secure: false,
@@ -33,8 +38,9 @@ const logout = (req, res) => {
       });
   
       res.json({ success: true });
+      res.send('cookie delete kora hoise')
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error('Cookie delete error:', error);
       res.status(500).json({ success: false, error: 'Internal Server Error' });
     }
   };

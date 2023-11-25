@@ -38,11 +38,12 @@ app.listen(PORT, () => {
 // Get Operations
 
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.send('Welcome to Wandelo Server!')
   })
 
 
-app.get('/packages', packageController.getAllPackages);
+app.get('/packages', packageController.allPackages);
+app.get('/packages/:id', packageController.singlePackage);
 
 
 // Post Operations
