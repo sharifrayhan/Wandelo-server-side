@@ -1,4 +1,4 @@
-const Package = require('../models/Package'); // Adjust the path as needed
+const Package = require('../models/Package'); 
 
 const getAllPackages = async (req, res) => {
   try {

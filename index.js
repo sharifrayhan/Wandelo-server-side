@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+
+
 const packageController = require('./src/controllers/packageController'); 
+const authController = require('./src/controllers/authController');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -31,11 +34,19 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
+// Get Operations
+
 app.get('/', (req, res) => {
     res.send('Hello World!')
   })
 
 
 app.get('/packages', packageController.getAllPackages);
+
+
+// Post Operations
+
+app.post('/jwt', authController.login);
+app.post('/logout', authController.logout);
 
 
