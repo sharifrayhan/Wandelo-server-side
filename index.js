@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const globalErrorHandler = require('./src/middlewares/globalErrorHandler');
 const crudErrorHandler = require('./src/middlewares/crudErrorHandler');
 const packageController = require('./src/controllers/packageController'); 
+const guidesController = require('./src/controllers/guidesController'); 
 const authController = require('./src/controllers/authController');
 
 // Load environment variables from .env file
@@ -41,13 +42,20 @@ app.get('/', (req, res) => {
     res.send('Welcome to Wandelo Server!')
   })
 
+// For Packages
 
 app.get('/packages', packageController.allPackages);
 app.get('/packages/:id', packageController.singlePackage);
 
+// For Guides
+
+app.get('/guides', guidesController.allGuides);
+app.get('/guides/:id', guidesController. singleGuide);
+
 
 // Post Operations
 
+// For Tokens
 app.post('/jwt', authController.login);
 app.post('/logout', authController.logout);
 
