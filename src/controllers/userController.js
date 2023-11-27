@@ -3,7 +3,7 @@ const User = require('../models/User');
 // Controller to create a new user
 const createUser = async (req, res) => {
   try {
-    const { displayName, email, photoURL } = req.body;
+    const { name, email, photoURL, desiredRole } = req.body;
 
     // Check if the email is already registered
     const existingUser = await User.findOne({ email });
@@ -13,9 +13,10 @@ const createUser = async (req, res) => {
 
     // Create a new user with default role as 'tourist'
     const newUser = new User({
-      displayName,
+      name,
       email,
-      photoURL
+      photoURL,
+      desiredRole
     });
 
     await newUser.save();
@@ -59,11 +60,11 @@ const getSingleUser = async (req, res) => {
 const updateUser = async (req, res) => {
   try {
     const userId = req.params.id;
-    const { photoURL, displayName, email, role } = req.body;
+    const { photoURL, name, email, desiredRole } = req.body;
 
     const user = await User.findByIdAndUpdate(
       userId,
-      { photoURL,displayName, email, role },
+      { photoURL,name, email, desiredRole },
       { new: true, runValidators: true }
     );
 

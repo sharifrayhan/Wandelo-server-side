@@ -47,6 +47,9 @@ app.get('/', (req, res) => {
 
 app.get('/packages', packageController.allPackages);
 app.get('/packages/:id', packageController.singlePackage);
+app.post('/packages', packageController.createPackage);
+app.put('/packages/:id', packageController.updatePackage);
+app.delete('/packages/:id', packageController.deletePackage);
 
 // For Guides
 
