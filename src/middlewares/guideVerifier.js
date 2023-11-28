@@ -1,7 +1,6 @@
 const User = require('../models/User');
 
-
-const adminVerifier = async (req, res, next) => {
+const guideVerifier = async (req, res, next) => {
     const email = req.user ? req.user.email : null;
     const query = { email: email }
     try {
@@ -9,11 +8,11 @@ const adminVerifier = async (req, res, next) => {
         if (!user) {
           return res.status(404).json({ error: 'User not found' });
         }
-        if (user.role === 'admin') {
+        if (user.role === 'guide') {
           next();
         } else {
           // role match na korle
-          return res.status(403).json({ error: 'Forbidden Access' });
+          return res.status(403).json({ error: 'Tumi guide na tai access nai' });
         }
       } catch (error) {
         console.error('Error checking user role:', error);
@@ -21,4 +20,4 @@ const adminVerifier = async (req, res, next) => {
       }
 }
 
-module.exports = adminVerifier;
+module.exports = guideVerifier;
