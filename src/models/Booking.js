@@ -1,14 +1,17 @@
 const mongoose = require('mongoose');
 
 const bookingSchema = new mongoose.Schema({
+
   name: {
     type: String,
     required: true,
   },
+
   email: {
     type: String,
     required: true,
   },
+
   tourDate: {
     type: Date,
     required: true,
@@ -22,7 +25,7 @@ const bookingSchema = new mongoose.Schema({
   },
 
 //  Client side theke pathano Object id use kore package collection theke specific package ke point kortesi
-  packageName: {
+  package: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Package',
     required: true,

@@ -10,6 +10,7 @@ const packageController = require('./src/controllers/packageController');
 const guidesController = require('./src/controllers/guidesController'); 
 const userController = require('./src/controllers/userController'); 
 const authController = require('./src/controllers/authController');
+const bookingController = require('./src/controllers/bookingController');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -64,6 +65,15 @@ app.get('/users', userController.getAllUsers);
 app.get('/users/:id', userController.getSingleUser);
 app.put('/users/:id', userController.updateUser);
 app.delete('/users/:id', userController.deleteUser);
+
+// Bookings
+app.post('/bookings', bookingController.createBooking);
+app.get('/bookings', bookingController.getAllBookings);
+app.get('/bookings/:id', bookingController.getABooking);
+app.put('/bookings/:id', bookingController.updateBooking);
+app.delete('/bookings/:id', bookingController.deleteBooking);
+
+
 
 // For Tokens
 app.post('/jwt', authController.login);
