@@ -12,6 +12,11 @@ const bookingSchema = new mongoose.Schema({
     required: true,
   },
 
+  status: {
+    type: String,
+    required: true,
+  },
+
   tourDate: {
     type: Date,
     required: true,
@@ -20,14 +25,14 @@ const bookingSchema = new mongoose.Schema({
 //  Object id diye guides collection er shathe connection establish kortesi
   tourGuide: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Guide', 
+    ref: 'guides', 
     required: true,
   },
 
 //  Client side theke pathano Object id use kore package collection theke specific package ke point kortesi
   package: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Package',
+    ref: 'packages',
     required: true,
   },
 }, 

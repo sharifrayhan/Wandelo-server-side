@@ -3,13 +3,14 @@ const Booking = require('../models/Booking');
 // Create a new booking
 const createBooking = async (req, res) => {
   try {
-    const { name, email, tourDate, tourGuide, package} = req.body;
+    const { name, email, tourDate, tourGuide, package, status} = req.body;
     const newBooking = new Booking({
       name,
       email,
       tourDate,
       tourGuide,
       package, 
+      status
     });
 
     await newBooking.save();
@@ -23,37 +24,51 @@ const createBooking = async (req, res) => {
 
 // Get all bookings
 const getAllBookings = async (req, res) => {
-  try {
-    const bookings = await Booking.find();
-    res.json(bookings);
-  } catch (error) {
-    console.error('Error getting bookings:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-};
-
-// Get a specific booking by ID
-const getABooking = async (req, res) => {
-  try {
-    const booking = await Booking.findById(req.params.id);
-    if (!booking) {
-      return res.status(404).json({ error: 'Booking not found' });
+    try {
+      const bookings = await Booking.find()
+        .populate('tourGuide package')
+        .exec();
+  
+      res.json(bookings);
+    } catch (error) {
+      console.error('Error getting bookings:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
     }
-    res.json(booking);
-  } catch (error) {
-    console.error('Error getting booking by ID:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-};
+  };
+
+  // get a specific booking
+  const getABooking = async (req, res) => {
+    try {
+      const booking = await Booking
+        .findById(req.params.id)
+        .populate('tourGuide package'); 
+  
+      if (!booking) {
+        return res.status(404).json({ error: 'Booking not found' });
+      }
+  
+      res.json(booking);
+    } catch (error) {
+      console.error('Error getting booking by ID:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
 
 // Update a booking by ID
 const updateBooking = async (req, res) => {
   try {
-    const updatedBooking = await Booking.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const bookingId = req.params.id;
+    const { status } = req.body;
+    const updatedBooking = await Booking.findByIdAndUpdate(
+        bookingId,
+        { status },
+        { new: true }
+        );
+
     if (!updatedBooking) {
       return res.status(404).json({ error: 'Booking not found' });
     }
-    res.json({ message: 'Booking updated successfully', booking: updatedBooking });
+    res.json({ message: 'Booking status updated successfully', booking: updatedBooking });
   } catch (error) {
     console.error('Error updating booking by ID:', error);
     res.status(500).json({ error: 'Internal Server Error' });
