@@ -11,6 +11,7 @@ const guidesController = require('./src/controllers/guidesController');
 const userController = require('./src/controllers/userController'); 
 const authController = require('./src/controllers/authController');
 const bookingController = require('./src/controllers/bookingController');
+const wishlistController = require('./src/controllers/wishlistController');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -72,6 +73,13 @@ app.get('/bookings', bookingController.getAllBookings);
 app.get('/bookings/:id', bookingController.getABooking);
 app.put('/bookings/:id', bookingController.updateBooking);
 app.delete('/bookings/:id', bookingController.deleteBooking);
+
+
+// Wishlist
+app.post('/wishlist', wishlistController.createWish);
+app.get('/wishlist', wishlistController.allWishlist);
+app.get('/wishlist/:id', wishlistController.singleWish);
+app.delete('/wishlist/:id', wishlistController.deleteWish);
 
 
 
