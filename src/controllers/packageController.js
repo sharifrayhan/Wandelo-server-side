@@ -34,9 +34,9 @@ const createPackage = async (req, res) => {
   try {
     const newPackage = new Package(req.body);
     await newPackage.save();
-    res.status(201).json(newPackage);
+    res.status(201).send('Package created successfully');
   } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).send('Internal Server Error');
   }
 };
 

@@ -37,7 +37,7 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-// Get Operations
+
 
 app.get('/', (req, res) => {
     res.send('Welcome to Wandelo Server!')
@@ -57,13 +57,13 @@ app.get('/guides', guidesController.allGuides);
 app.get('/guides/:id', guidesController.singleGuide);
 
 
-// Post Operations
 
 // Users
 app.post('/users', userController.createUser);
 app.get('/users', userController.getAllUsers);
 app.get('/users/:id', userController.getSingleUser);
 app.put('/users/:id', userController.updateUser);
+app.delete('/users/:id', userController.deleteUser);
 
 // For Tokens
 app.post('/jwt', authController.login);
