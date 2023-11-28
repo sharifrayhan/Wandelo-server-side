@@ -1,6 +1,6 @@
 const User = require('../models/User');
 
-const guideVerifier = async (req, res, next) => {
+const touristVerifier = async (req, res, next) => {
     const email = req.user ? req.user.email : null;
     const query = { email: email }
     try {
@@ -8,11 +8,11 @@ const guideVerifier = async (req, res, next) => {
         if (!user) {
           return res.status(404).json({ error: 'User not found' });
         }
-        if (user.role === 'guide') {
+        if (user.role === 'tourist') {
           next();
         } else {
           // role match na korle
-          return res.status(403).json({ error: 'Tumi guide na tai access nai' });
+          return res.status(403).json({ error: 'Tumi tourist na tai access nai' });
         }
       } catch (error) {
         console.error('Error checking user role:', error);
@@ -20,4 +20,4 @@ const guideVerifier = async (req, res, next) => {
       }
 }
 
-module.exports = guideVerifier;
+module.exports = touristVerifier;
