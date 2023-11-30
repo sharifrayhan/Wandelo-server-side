@@ -64,7 +64,10 @@ const updateUser = async (req, res) => {
 
     const user = await User.findByIdAndUpdate(
       userId,
-      {  role, cover_image, profile_image, education, phone, skills ,experience, name, email, reviews },
+      {
+        $set: { role, cover_image, profile_image, education, phone, skills, experience, name, email },
+        $push: { reviews: reviews }
+      },
       { new: true, runValidators: true }
     );
 

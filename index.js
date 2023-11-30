@@ -12,6 +12,7 @@ const userController = require('./src/controllers/userController');
 const authController = require('./src/controllers/authController');
 const bookingController = require('./src/controllers/bookingController');
 const wishlistController = require('./src/controllers/wishlistController');
+const storiesController = require('./src/controllers/storiesController');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -80,6 +81,12 @@ app.post('/wishlist', wishlistController.createWish);
 app.get('/wishlist', wishlistController.allWishlist);
 app.get('/wishlist/:id', wishlistController.singleWish);
 app.delete('/wishlist/:id', wishlistController.deleteWish);
+
+// Stories
+app.post('/stories', storiesController.postStory);
+app.get('/stories', storiesController.allStories);
+app.get('/stories/:id', storiesController.singleStory);
+
 
 
 
