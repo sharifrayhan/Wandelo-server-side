@@ -13,12 +13,7 @@ const authController = require('./src/controllers/authController');
 const bookingController = require('./src/controllers/bookingController');
 const wishlistController = require('./src/controllers/wishlistController');
 const storiesController = require('./src/controllers/storiesController');
-const tokenVerifier = require('./src/middlewares/tokenVerifier');
-const roleVerifier = require('./src/middlewares/roleVerifier');
-const adminVerifier = require('./src/middlewares/adminVerifier');
-const guideVerifier = require('./src/middlewares/guideVerifier');
-const touristVerifier = require('./src/middlewares/touristVerifier');
-const touristAndGuideVerifier = require('./src/middlewares/touristAndGuideVerifier');
+
 
 // Load environment variables from .env file
 dotenv.config();
