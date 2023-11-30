@@ -10,11 +10,7 @@ const login = async (req, res) => {
     console.log('user token chacche', user);
     const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1hr' });
 
-    res.cookie('token', token, {
-      httpOnly: false,
-      secure:  false,
-      sameSite:  'none',
-    });
+    res.cookie('token', token, {httpOnly:true, secure: process.env.NODE_ENV === "production"? true: false, sameSite:process.env.NODE_ENV === "production"? 'none':'strict'});
 
     res.send({ success: true, token });
   } catch (error) {
@@ -31,11 +27,7 @@ const logout = (req, res) => {
     try {
         const user = req.body
         console.log('cookie delete korte hobe', user)
-      res.clearCookie('token', {
-        maxAge: 0,
-        secure: false,
-        sameSite: 'none' 
-      });
+      res.clearCookie('token', {maxAge: 0,secure: process.env.NODE_ENV === "production"? true: false, sameSite:process.env.NODE_ENV === "production"? 'none':'strict'}).send({success: true});
   
       res.json({ success: true });
       res.send('cookie delete kora hoise')

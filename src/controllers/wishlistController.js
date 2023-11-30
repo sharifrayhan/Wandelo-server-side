@@ -32,13 +32,14 @@ const singleWish = async (req, res) => {
   };
 
    // Create a new wish
-const createWish = async (req, res) => {
-    try { 
-     const {package} = req.body;
-      const newWish = new Wishlist({package});
+   const createWish = async (req, res) => {
+    try {
+      const { package: id, email: userEmail } = req.body;
+      const newWish = new Wishlist({ package: id, email: userEmail });
       await newWish.save();
       res.status(201).send('Wish added successfully');
     } catch (error) {
+      console.error(error);
       res.status(500).send('Server Error');
     }
   };

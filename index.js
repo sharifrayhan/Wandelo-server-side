@@ -13,6 +13,12 @@ const authController = require('./src/controllers/authController');
 const bookingController = require('./src/controllers/bookingController');
 const wishlistController = require('./src/controllers/wishlistController');
 const storiesController = require('./src/controllers/storiesController');
+const tokenVerifier = require('./src/middlewares/tokenVerifier');
+const roleVerifier = require('./src/middlewares/roleVerifier');
+const adminVerifier = require('./src/middlewares/adminVerifier');
+const guideVerifier = require('./src/middlewares/guideVerifier');
+const touristVerifier = require('./src/middlewares/touristVerifier');
+const touristAndGuideVerifier = require('./src/middlewares/touristAndGuideVerifier');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -23,7 +29,8 @@ const app = express();
 // Middleware
 app.use(cors({
     origin: [
-      "http://localhost:5173"
+      "http://localhost:5173",
+      "https://wandelo-client-sharifrayhan.netlify.app"
     ],
     credentials: true
   }))
@@ -63,10 +70,10 @@ app.get('/guides/:id', guidesController.singleGuide);
 
 // Users
 app.post('/users', userController.createUser);
-app.get('/users', userController.getAllUsers);
+app.get('/users',userController.getAllUsers);
 app.get('/users/:id', userController.getSingleUser);
 app.put('/users/:id', userController.updateUser);
-app.delete('/users/:id', userController.deleteUser);
+app.delete('/users/:id',userController.deleteUser);
 
 // Bookings
 app.post('/bookings', bookingController.createBooking);
@@ -79,7 +86,7 @@ app.delete('/bookings/:id', bookingController.deleteBooking);
 // Wishlist
 app.post('/wishlist', wishlistController.createWish);
 app.get('/wishlist', wishlistController.allWishlist);
-app.get('/wishlist/:id', wishlistController.singleWish);
+app.get('/wishlist/:id',wishlistController.singleWish);
 app.delete('/wishlist/:id', wishlistController.deleteWish);
 
 // Stories
